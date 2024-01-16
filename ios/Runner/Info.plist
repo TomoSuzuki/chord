@@ -49,5 +49,8 @@
 	<string>Our app uses bluetooth to find, connect and transfer data between different devices</string>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>Our app uses Network to find, connect and transfer data between different devices</string>
+	<key>FLTEnableImpeller</key>
+  	<false />
+
 </dict>
 </plist>
