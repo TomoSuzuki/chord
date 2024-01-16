@@ -4,8 +4,19 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_midi_command/flutter_midi_command.dart';
 import 'controller.dart';
 import 'dart:developer' as dev;
+import 'package:flutter/services.dart';
 
-void main() => runApp(const MyApp());
+//void main() => runApp(const MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    // 横向き
+    DeviceOrientation.landscapeLeft,
+    DeviceOrientation.landscapeRight
+  ]).then((_) {
+    runApp(const MyApp());
+  });
+}
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
