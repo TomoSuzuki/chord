@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_midi_command/flutter_midi_command.dart';
 import 'package:flutter_midi_command/flutter_midi_command_messages.dart';
 import 'package:flutter_virtual_piano/flutter_virtual_piano.dart';
+import 'package:music_notes/music_notes.dart';
+import 'dart:math' as math;
 
 class ControllerPage extends StatelessWidget {
   final MidiDevice device;
@@ -80,6 +82,7 @@ class MidiControlsState extends State<MidiControls> {
   }
 
   int _note = 0;
+  var printnote = Note.d.flat;
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +92,7 @@ class MidiControlsState extends State<MidiControls> {
         SizedBox(
           height: 120,
           child: VirtualPiano(
-            noteRange: const RangeValues(36, 76),
+            noteRange: const RangeValues(48, 84),
             onNotePressed: (note, vel) {
               NoteOnMessage(note: note, velocity: 100).send();
               if (kDebugMode) {
@@ -102,13 +105,38 @@ class MidiControlsState extends State<MidiControls> {
             },
           ),
         ),
-        const SizedBox(height: 50),
+        const SizedBox(height: 20),
         Center(
           child: SizedBox(
             height: 80,
             child: Text(
               '$_note',
-              style: Theme.of(context).textTheme.headlineMedium,
+              style: const TextStyle(fontSize: 40),
+              //style: Theme.of(context).textTheme.headlineMedium,
+            ),
+          ),
+        ),
+        const SizedBox(height: 10),
+        Center(
+          child: ElevatedButton(
+            onPressed: () {
+              showRandomChordName();
+              //_setChordName(chord);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.lightBlue,
+            ),
+            child: const Text("lesson start",
+                style: TextStyle(color: Colors.white)),
+          ),
+        ),
+        Center(
+          child: SizedBox(
+            height: 80,
+            child: Text(
+              'press $_chordName',
+              style: const TextStyle(fontSize: 40),
+              //style: Theme.of(context).textTheme.headlineMedium,
             ),
           ),
         ),
@@ -120,5 +148,28 @@ class MidiControlsState extends State<MidiControls> {
     setState(() {
       _note = newValue;
     });
+  }
+
+  String chord = '';
+
+  void showRandomChordName() {
+    List<String> chordsList = ["C", "D", "E", "F", "G", "A", "B"];
+    int value = math.Random().nextInt(7);
+    String chord = chordsList[value];
+    if (kDebugMode) {
+      print("Chord is $chord");
+    }
+    //return chord;
+    _setChordName(chord);
+  }
+
+  String _chordName = "";
+  void _setChordName(String newtext) {
+    setState(() {
+      _chordName = newtext;
+    });
+    if (kDebugMode) {
+      print("note pressed $_chordName ");
+    }
   }
 }

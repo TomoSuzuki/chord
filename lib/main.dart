@@ -62,7 +62,7 @@ class MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('FlutterMidiCommand Example'),
+          title: const Text('Chord Trainer'),
         ),
         body: Center(
           child: FutureBuilder(
