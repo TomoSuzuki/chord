@@ -17,7 +17,15 @@ class ControllerPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Chord Trainer'),
+        backgroundColor: Colors.black87,
+        title:
+            const Text('Chord Trainer', style: TextStyle(color: Colors.white)),
+        shape: const Border(
+          bottom: BorderSide(
+            color: Colors.red,
+            width: 1,
+          ),
+        ),
       ),
       body: MidiControls(device),
     );
@@ -87,7 +95,7 @@ class MidiControlsState extends State<MidiControls> {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: const EdgeInsets.all(12),
+      //padding: const EdgeInsets.all(12),
       children: <Widget>[
         SizedBox(
           height: 120,
@@ -106,40 +114,41 @@ class MidiControlsState extends State<MidiControls> {
           ),
         ),
         const SizedBox(height: 20),
-        Center(
-          child: SizedBox(
-            height: 80,
-            child: Text(
-              '$_note',
-              style: const TextStyle(fontSize: 40),
-              //style: Theme.of(context).textTheme.headlineMedium,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 80,
+              child: Text(
+                '$_note',
+                style: const TextStyle(fontSize: 40),
+                //style: Theme.of(context).textTheme.headlineMedium,
+              ),
             ),
-          ),
+            const SizedBox(width: 50),
+            SizedBox(
+              height: 80,
+              child: Text(
+                'Play $_chordName',
+                style: const TextStyle(fontSize: 40),
+                //style: Theme.of(context).textTheme.headlineMedium,
+              ),
+            ),
+            const SizedBox(width: 50),
+            ElevatedButton(
+              onPressed: () {
+                showRandomChordName();
+                //_setChordName(chord);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.lightBlue,
+              ),
+              child: const Text("lesson start",
+                  style: TextStyle(color: Colors.white)),
+            ),
+          ],
         ),
         const SizedBox(height: 10),
-        Center(
-          child: ElevatedButton(
-            onPressed: () {
-              showRandomChordName();
-              //_setChordName(chord);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.lightBlue,
-            ),
-            child: const Text("lesson start",
-                style: TextStyle(color: Colors.white)),
-          ),
-        ),
-        Center(
-          child: SizedBox(
-            height: 80,
-            child: Text(
-              'press $_chordName',
-              style: const TextStyle(fontSize: 40),
-              //style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ),
-        ),
       ],
     );
   }
@@ -151,7 +160,7 @@ class MidiControlsState extends State<MidiControls> {
   }
 
   String chord = '';
-
+  String _chordName = '';
   void showRandomChordName() {
     List<String> chordsList = ["C", "D", "E", "F", "G", "A", "B"];
     int value = math.Random().nextInt(7);
@@ -160,10 +169,13 @@ class MidiControlsState extends State<MidiControls> {
       print("Chord is $chord");
     }
     //return chord;
-    _setChordName(chord);
+    //_setChordName(chord);
+    setState(() {
+      _chordName = chord;
+    });
   }
 
-  String _chordName = "";
+  /*
   void _setChordName(String newtext) {
     setState(() {
       _chordName = newtext;
@@ -172,4 +184,5 @@ class MidiControlsState extends State<MidiControls> {
       print("note pressed $_chordName ");
     }
   }
+  */
 }

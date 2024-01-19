@@ -62,7 +62,15 @@ class MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Chord Trainer'),
+          backgroundColor: Colors.black87,
+          title: const Text('Chord Trainer',
+              style: TextStyle(color: Colors.white)),
+          shape: const Border(
+            bottom: BorderSide(
+              color: Colors.red,
+              width: 1,
+            ),
+          ),
         ),
         body: Center(
           child: FutureBuilder(
