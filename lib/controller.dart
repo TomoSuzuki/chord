@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_midi_command/flutter_midi_command.dart';
 import 'package:flutter_midi_command/flutter_midi_command_messages.dart';
 import 'package:flutter_virtual_piano/flutter_virtual_piano.dart';
-import 'package:music_notes/music_notes.dart';
+//import 'package:music_notes/music_notes.dart';
 import 'dart:math' as math;
 
 class ControllerPage extends StatelessWidget {
@@ -90,7 +90,7 @@ class MidiControlsState extends State<MidiControls> {
   }
 
   int _note = 0;
-  var printnote = Note.d.flat;
+  //var printnote = Note.d.flat;
 
   @override
   Widget build(BuildContext context) {
@@ -107,6 +107,7 @@ class MidiControlsState extends State<MidiControls> {
                 print("note pressed $note ");
               }
               _setNote(note);
+              catchNote(note);
             },
             onNoteReleased: (note) {
               NoteOffMessage(note: note).send();
@@ -144,11 +145,10 @@ class MidiControlsState extends State<MidiControls> {
                 backgroundColor: Colors.lightBlue,
               ),
               child: const Text("lesson start",
-                  style: TextStyle(color: Colors.white)),
+                  style: TextStyle(color: Colors.white, fontSize: 20)),
             ),
           ],
         ),
-        const SizedBox(height: 10),
       ],
     );
   }
@@ -168,21 +168,23 @@ class MidiControlsState extends State<MidiControls> {
     if (kDebugMode) {
       print("Chord is $chord");
     }
-    //return chord;
-    //_setChordName(chord);
     setState(() {
       _chordName = chord;
     });
+    //return chord;
   }
 
-  /*
-  void _setChordName(String newtext) {
-    setState(() {
-      _chordName = newtext;
-    });
+  void catchNote(note) {
     if (kDebugMode) {
-      print("note pressed $_chordName ");
+      print("catch $note");
+    }
+    if (kDebugMode) {
+      print("catch $_chordName");
+    }
+    if (note == 60 && _chordName == 'C') {
+      print('Good');
+    } else {
+      print('Bad');
     }
   }
-  */
 }
